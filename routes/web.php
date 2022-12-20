@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth.session']], function() {
 
     Route::get('/', [historico::class, 'show'])->middleware(['auth'])
     ->name('historico');
+  Route::get('/buscar', [historico::class, 'index'])->name('buscar');
 
    Route::get('/cadastro', [cadastro::class, 'cadastro']);
 
@@ -33,12 +34,23 @@ Route::group(['middleware' => ['auth.session']], function() {
 
   // Route::get('/', [historico::class, 'show'])->name('historico');
 
-    //Rota criar setor
-   Route::post('/cadastro-setor', [SolicitacaoController::class, 'store'])->name('criar-solicitacao');
+  //Rota criar setor
 
-  Route::get('/relatorio', [relatorio::class, 'relatorio'])->name('relatorio');
+   Route::post('/cadastro-setor', [SolicitacaoController::class, 'store'])
+   ->name('criar-solicitacao');
 
-  Route::get('/generate-pdf', [relatorio::class, 'Docs'])->name('gera-pdf');
+  Route::get('/relatorio', [relatorio::class, 'relatorio'])
+  ->name('relatorio');
+
+  Route::get('/generate-pdf', [relatorio::class, 'Docs'])
+  ->name('gera-pdf');
+
+Route::any('/search', [historico::class, 'search'])
+->name('posts.search');
+
+  //Route::any('/', [historico::class, 'search'])
+  //->name('historico');
+
 
 
 });

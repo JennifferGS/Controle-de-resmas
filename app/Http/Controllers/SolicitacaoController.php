@@ -26,7 +26,7 @@ class SolicitacaoController extends Controller
     public function create()
     {
         $solicitacao = new Solicitacao();
-        $solicitacao->id_setor = $request->input('nome');
+        $solicitacao->id_setor = $request->input('id_setor');
         $solicitacao->quant_resmas = $request->input('quant_resmas');
 
         $solicitacao->save();

@@ -14,43 +14,38 @@ class historico extends Controller
 
     public function show(Request $request)
     {
-        /*$solicitacao = Solicitacao::with(['id_setor', 'id'])->get();*/
-
-        //$solicitacao = Solicitacao::all();
-
-        //$solicitacao = setores::find(1)->solicitacao;
-
-        // $setores = setores::with('solicitacao')->first();
-
-        //$solicitacao = $setores->solicitacao;
-
-        //$solicitacao = Solicitacao::where('id', $setores)->first();
+        $setores = setores::orderby('id')->get();
 
         $solicitacao = Solicitacao::with('setores')->get();
+        $solicitacao->id_setor = $request->input('id_setor');
 
-        return view('historico', ['solicitacao' => $solicitacao]);
-    }
- public function index(Request $request)
-    {            
-        $filter_id = $request-> id_setor;
-        $filter_name = $request->nome;
-        $filter_description = $request->description;
-    
-        // cria o array que será utilizado no query builder
-        $filter_all;
-    
-        // verifica se veio id
-        if($filter_id) {
-            $filter_all[] = [ 'id_setor', '=', $filter_id];
-        }
-    
-        // verifica se veio name
-        if($filter_name) {
-            $filter_all[] = ['nome', 'like', '%'.$filter_name.'%'];
-        }
-        return view('brand.index', compact('brands'));
+
+        $solicitacao = Solicitacao::paginate(7);
+        //$data = Cadastro::find('id')->with(['cadastro'])->get();
+
+        return view('historico', ['solicitacao' => $solicitacao], ['setores' => $setores]);
 
     }
 
+    public function search(Request $request)
+    {
+      $id_setor = $request->input('id_setor');
+      $solicitacao = Solicitacao::where('id_setor', '=', $request->id_setor)->get();
+      
+
+
+    $buscar = [
+      'solicitacao' => $solicitacao,
+    ];
+    return view('historico', $buscar);
+    }
+      
+
+
+    public function index(Request $request)
+    {}
+
+     
+
+          
 }
-

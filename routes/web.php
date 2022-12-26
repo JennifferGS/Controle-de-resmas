@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth.session']], function() {
   Route::get('/generate-pdf', [relatorio::class, 'Docs'])
   ->name('gera-pdf');
 
-Route::any('/search', [historico::class, 'search'])
+Route::get('/search', [historico::class, 'ajax'])
 ->name('posts.search');
 
   //Route::any('/', [historico::class, 'search'])

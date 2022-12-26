@@ -3,8 +3,20 @@
 @section('content')
 
     <br><br>
-
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+  
+    <script type="text/javascript">
+        var $rows = $('#table tr');
+        $('#search').keyup(function() {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+        
+            $rows.show().filter(function() {
+                var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+                return !~text.indexOf(val);
+            }).hide();
+        });
+        </script>
+    
     <div class="container">
 
         <a class="btn btn-outline-primary" href="/cadastro" role="button">NOVA SOLICITAÇÃO</a>
@@ -26,58 +38,49 @@
                 <div class="card-body text-dark">
                     <p class="card-text">
 
-                        {{-- <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-                          </form> --}}
+                        {{--<form action="{{route('historico')}}" method="GET">
+                            <input type="text" class="form-control" name="id_setor" id="id_setor"
+                                placeholder="Digite aqui...">
 
-                        {{--  @if ($search)     
-                  <h1>Buscando por: {{ $search }}</h1>
-                    @endif --}}
-                    <form class="d-flex" role="search"  method="ANY">
+                                <button class="btn btn-outline-success justify-content-md-end" type="submit">buscar
+                            </button>
+                        </form>--}}
+                        <form class="d-flex" action="{{route('historico')}}" method="GET">
                         <select class="form-control" name="id_setor" id="id_setor">
                             <option>Selecione um setor</option>
 
                             @foreach ($setores as $setor)
-                                <option value="{{ $setor->id }}">{{ $setor->Nome }} - {{ $setor->Sigla }}
-                                </option>
-                            @endforeach
-                        </select>
-                        
-                        <button class="btn btn-outline-success justify-content-md-end" type="submit"><svg
-                                xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg>
-                        </button>
-                    </form
-                    
-                     {{--  <form action="{{route('historico')}}" method="GET">
-                        <div class="form-group">
-                            <select class="form-control" name="id_setor" id="id_setor">
-                                <option>Selecione um setor</option>
-
-                                @foreach ($setores as $setor)
                             <option value="{{ $setor->id }}">{{ $setor->Nome }} - {{ $setor->Sigla }}
                             </option>
                             @endforeach
-                            </select>
-                            <div class="justify-content-md-end"><button type="submit"
-                                    class="btn btn-outline-success ">Buscar</button>
-                            </div>
-                        </div>
-                    </form> --}} <br>
+                        </select>
+
+                        <button class="btn btn-outline-success justify-content-md-end" type="submit"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                    </button>
+
+                    <div class="d-flex">
+                        <a class="btn btn-outline-danger" href="{{route('historico')}}" role="button">Limpar</a>
+                    </div>
+
+                    </form>
+                    
+                    
                     <br>
-                    <table class="table table-hover">
+                    <br>
+                    <table class="table table-hover" id="table">
                         <thead class="table-primary" style="background-color: 	#E1F5FE;">
                             <tr>
-                                <th scope="col">Número de solicitação</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Matrícula</th>
-                                <th scope="col">Setor</th>
-                                <th scope="col">Quantidade de resmas</th>
-                                <th scope="col">Data da solicitação</th>
+                                <th>Número de solicitação</th>
+                                <th>Nome</th>
+                                <th>Matrícula</th>
+                                <th>Setor</th>
+                                <th>Quantidade de resmas</th>
+                                <th>Data da solicitação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,9 +88,9 @@
 
                             @foreach ($solicitacao as $solic)
                                 <tr>
-                                    <th value="{{ $solic->id }}">{{ $solic->id }}</th>
-                                    <th value="{{ $solic->id }}">{{ $solic->nome }}</th>
-                                    <th value="{{ $solic->id }}">{{ $solic->matricula }}</th>
+                                    <td value="{{ $solic->id }}">{{ $solic->id }}</td>
+                                    <td value="{{ $solic->id }}">{{ $solic->nome }}</td>
+                                    <td value="{{ $solic->id }}">{{ $solic->matricula }}</td>
                                     <td value="{{ $solic->id }}">{{ $solic->setores->Nome }} -
                                         {{ $solic->setores->Sigla }}</td>
                                     <td value="{{ $solic->id }}">{{ $solic->quant_resmas }}</td>
@@ -100,7 +103,8 @@
                     </table>
 
                     <div>
-                        {{ $solicitacao->links() }}
+                        {{$solicitacao->links()}}
+
                     </div>
                     </p>
                 </div>

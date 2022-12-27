@@ -53,7 +53,7 @@
                 <img src="/img/Logo_transparente.png" style="width: 150px; height: 60px"
                     class="d-inline-block align-text-top">
                 <a class="navbar-brand text-dark">
-                    Controle de Entrada e Saída
+                    Controle de resmas e toner
                 </a>
                 <ul class="nav justify-content-end">
                     <li class="nav-item">

@@ -19,7 +19,7 @@
     
     <div class="container">
 
-        <a class="btn btn-outline-primary" href="/cadastro" role="button">NOVA SOLICITAÇÃO</a>
+        <a class="btn btn-outline-primary" href="/cadastro" role="button">NOVA SOLICITAÇÃo</a>
         <br><br>
 
 

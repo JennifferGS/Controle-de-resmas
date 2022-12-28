@@ -14,7 +14,7 @@
                     <a class="nav-link text-dark" href="/login">Entrar</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="/register"></a>
+                    <a class="nav-link text-dark" hidden href="/register">Registrar</a>
                 </li>
 
                 
